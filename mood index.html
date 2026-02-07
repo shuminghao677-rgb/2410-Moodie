@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodie - Mood Index Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F9F9F4;
+            --primary-green: #A7C9A7;
+            --accent-yellow: #F3A358;
+            --text-dark: #2C3E50;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* 顶部声明栏 */
+        .prototype-banner {
+            width: 100%;
+            background: var(--text-dark);
+            color: #FFFFFF;
+            padding: 14px 0;
+            text-align: center;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .prototype-banner span { color: var(--accent-yellow); font-weight: 700; }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 40px 20px;
+        }
+
+        /* 统一 1100px 宽度 */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: #FFFFFF;
+            padding: 45px;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.03);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 45px;
+            border: 1px solid #EEE;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.7rem;
+            background: #F4F7F4;
+            color: var(--primary-green);
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .input-group { margin-bottom: 25px; }
+
+        label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            color: #7F8C8D;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #F4F7F4;
+            border-radius: 14px;
+            box-sizing: border-box;
+            outline: none;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: #FAFAFA;
+        }
+
+        input:focus { border-color: var(--primary-green); background: #FFF; }
+
+        .btn-group { display: flex; gap: 15px; margin-top: 15px; }
+        .btn {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: 0.3s;
+        }
+
+        .btn-eval { background: var(--accent-yellow); color: white; }
+        .btn-reset { background: #F1F1F1; color: #95A5A6; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* 右侧展示区 */
+        .display-section {
+            background: #FCFFFC;
+            border: 2px dashed var(--primary-green);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #placeholder { color: #BDC3C7; font-family: 'Inter'; }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border: 10px solid var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+
+        .score-num { font-size: 3rem; font-weight: 700; color: var(--primary-green); }
+
+        .action-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 1rem;
+            line-height: 1.6;
+            font-family: 'Inter';
+        }
+
+        /* 统一底部导航栏 */
+        .nav-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .nav-bar button {
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid #EEE;
+            background: #FFFFFF;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-family: 'Inter';
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .nav-bar button:hover { background: var(--primary-green); color: white; border-color: var(--primary-green); }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding: 25px; }
+            .display-section { min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="prototype-banner">
+        <span>Software Prototype:</span> Non-commercial Concept Model for Technical Demonstration
+    </div>
+
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="input-section">
+                <h2>Mood Index Tracker</h2>
+                <div class="tech-tag">TECH: PPG DATA FUSION</div>
+                
+                <div class="input-group">
+                    <label>Emotional Context (Description)</label>
+                    <textarea id="ui-prompt" rows="3" placeholder="I've been feeling quite productive but a bit physically tired..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Daily Activity (Steps)</label>
+                    <input type="number" id="ui-steps" placeholder="e.g., 4500">
+                </div>
+                <div class="input-group">
+                    <label>Physiological Data (Heart Rate)</label>
+                    <input type="number" id="ui-hr" placeholder="e.g., 85">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-eval" onclick="calculateMoodScore()">Evaluate Now</button>
+                    <button class="btn btn-reset" onclick="resetPage()">Reset</button>
+                </div>
+            </div>
+
+            <div class="display-section">
+                <div id="placeholder">
+                    <p>System Ready for Data Fusion...</p>
+                </div>
+                <div id="result-box" style="display: none; width: 100%;">
+                    <div class="score-circle">
+                        <span style="font-size: 0.8rem; color: #999; font-weight: 700;">INDEX</span>
+                        <span class="score-num" id="res-score">--</span>
+                    </div>
+                    <div class="action-card" id="res-action"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='mood index.html'">Mood Index</button>
+        <button onclick="location.href='AI.html'">AI Companion</button>
+        <button onclick="location.href='Community.html'">Community Space</button>
+    </div>
+
+    <script>
+        function calculateMoodScore() {
+            const prompt = document.getElementById('ui-prompt').value.trim();
+            const steps = document.getElementById('ui-steps').value;
+            const hr = document.getElementById('ui-hr').value;
+
+            if (!prompt || !steps || !hr) {
+                alert("Please complete all data fields for fusion.");
+                return;
+            }
+
+            let finalScore = 92; 
+            const text = prompt.toLowerCase();
+            const negativeWords = ["tired", "stressed", "nervous", "anxious", "pressure", "exhausted", "deadline"];
+
+            let textDeduction = 0;
+            negativeWords.forEach(word => { if (text.includes(word)) textDeduction += 10; });
+            finalScore -= Math.min(40, textDeduction);
+
+            if (hr > 100 || hr < 60) finalScore -= 15;
+            if (steps < 2000) finalScore -= 15;
+
+            finalScore = Math.max(10, Math.min(100, finalScore));
+
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('result-box').style.display = 'block';
+            document.getElementById('res-score').innerText = Math.round(finalScore) + "%";
+
+            const actionCard = document.getElementById('res-action');
+            if (finalScore < 65) {
+                actionCard.innerText = "System Suggest: Moderate stress levels detected. Consider the AI Companion for a reframing session.";
+                actionCard.style.color = "#E74C3C";
+                actionCard.style.backgroundColor = "#FFF5F5";
+            } else {
+                actionCard.innerText = "System Suggest: Balance achieved. Your physiological and emotional data are within optimal ranges.";
+                actionCard.style.color = "#27AE60";
+                actionCard.style.backgroundColor = "#F9FFF9";
+            }
+        }
+
+        function resetPage() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
