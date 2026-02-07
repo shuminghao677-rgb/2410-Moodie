@@ -9,7 +9,7 @@
         :root {
             --bg-color: #F9F9F4;
             --primary-green: #A7C9A7;
-            --accent-yellow: #F3A358;
+            --accent-yellow: #F3A358; /* 你喜欢的橙色 */
             --text-dark: #2C3E50;
         }
 
@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
 
-        /* 顶部 Banner - 修复手机歪斜 */
+        /* 顶部 Banner - 橙色加在 Software Prototype 上 */
         .prototype-banner {
             width: 100%;
             background: var(--text-dark);
@@ -40,11 +40,16 @@
             font-size: 0.75rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            text-align: center;
+        }
+        /* ✨ 橙色高亮部分 */
+        .prototype-banner span { 
+            color: var(--accent-yellow); 
+            font-weight: 700; 
+            margin-right: 6px;
         }
 
         .main-content {
-            padding: 80px 24px 80px; /* 底部间距调整，因为没有导航了 */
+            padding: 80px 24px 80px;
             max-width: 1100px;
             width: 100%;
             box-sizing: border-box;
@@ -56,7 +61,7 @@
 
         h1 {
             font-weight: 700;
-            font-size: clamp(3rem, 12vw, 4.5rem); 
+            font-size: clamp(3.5rem, 12vw, 5rem); 
             color: var(--primary-green);
             margin: 0 0 15px 0;
             letter-spacing: -0.04em;
@@ -71,10 +76,9 @@
             line-height: 1.5;
         }
 
-        /* 卡片布局 */
         .module-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             width: 100%;
             margin-bottom: 90px;
@@ -103,18 +107,19 @@
 
         .module-title { font-weight: 700; font-size: 1.6rem; text-transform: uppercase; }
 
+        /* ✨ 还原原始版的技术描述绿框 */
         .tech-tag {
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             background: #F4F7F4;
             color: var(--primary-green);
-            padding: 6px 14px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
             margin: 20px 0;
             font-weight: 600;
+            line-height: 1.2;
         }
 
-        /* 署名部分 */
         .team-section {
             width: 100%;
             border-top: 1px solid #EAEAE0;
@@ -140,16 +145,12 @@
         }
         .role { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-yellow); }
         .name { font-weight: 600; font-size: 1.2rem; }
-
-        @media (max-width: 480px) {
-            .team-grid { gap: 20px; }
-        }
     </style>
 </head>
 <body>
 
     <div class="prototype-banner">
-        Software Prototype: Non-commercial Concept Model
+        <span>Software Prototype:</span> Non-commercial Concept Model
     </div>
 
     <div class="main-content">
@@ -157,22 +158,22 @@
         <p class="subtitle">Your digital oasis for mindfulness and resilience.</p>
 
         <div class="module-container">
-            <a href="moodindex.html" class="module-card">
-                <div class="module-title">Mood Index</div>
-                <div class="tech-tag">Data Fusion</div>
-                <p>Simulating real-time stress analysis through multi-sensor input.</p>
+            <a href="mood index.html" class="module-card">
+                <div class="module-title">Mood Evaluation</div>
+                <div class="tech-tag">Hardware Support / PPG Sensor</div>
+                <p>Real-time stress analysis using biometric data fusion.</p>
             </a>
 
             <a href="AI.html" class="module-card">
-                <div class="module-title">AI Oasis</div>
-                <div class="tech-tag">Reframing</div>
-                <p>Empathetic AI dialogue designed for emotional cognitive reframing.</p>
+                <div class="module-title">AI Companion</div>
+                <div class="tech-tag">NLP / GPT-4 Emotion Engine</div>
+                <p>Empathetic dialogue designed for cognitive reframing.</p>
             </a>
 
             <a href="Community.html" class="module-card">
-                <div class="module-title">Community</div>
-                <div class="tech-tag">Peer-to-Peer</div>
-                <p>Building support networks based on shared emotional identifiers.</p>
+                <div class="module-title">Community Space</div>
+                <div class="tech-tag">P2P / Matching Algorithm</div>
+                <p>Support networks built on shared emotional identifiers.</p>
             </a>
         </div>
 

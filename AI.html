@@ -2,220 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moodie - AI Companion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Moodie - AI Oasis</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #F9F9F4;
-            --primary-green: #A7C9A7;
-            --accent-yellow: #F3A358;
-            --text-dark: #2C3E50;
-        }
+        :root { --bg-color: #F9F9F4; --primary-green: #A7C9A7; --accent-yellow: #F3A358; --text-dark: #2C3E50; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--text-dark); overflow-x: hidden; }
+        
+        .prototype-banner { width: 100%; background: var(--text-dark); color: #FFFFFF; padding: 14px 20px; box-sizing: border-box; display: flex; justify-content: center; align-items: center; font-family: 'Roboto Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }
+        .prototype-banner span { color: var(--accent-yellow); font-weight: 700; margin-right: 6px; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            color: var(--text-dark);
-        }
+        .main-wrapper { padding: 40px 20px 150px; max-width: 1000px; width: 100%; box-sizing: border-box; }
+        
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+        @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } }
 
-        /* 顶部声明栏：保持与主页一致 */
-        .prototype-banner {
-            width: 100%;
-            background: var(--text-dark);
-            color: #FFFFFF;
-            padding: 14px 0;
-            text-align: center;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-        .prototype-banner span { color: var(--accent-yellow); font-weight: 700; }
+        .input-box { background: white; padding: 30px; border-radius: 32px; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        textarea { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #eee; font-family: 'Inter'; font-size: 1rem; background: #fdfdfb; resize: none; box-sizing: border-box; }
+        
+        .action-btn { width: 100%; padding: 16px; background: var(--accent-yellow); color: white; border: none; border-radius: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .action-btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 40px 20px;
-        }
+        .display-section { background: #FCFFFC; border: 2px dashed var(--primary-green); border-radius: 32px; padding: 30px; display: flex; align-items: center; justify-content: center; min-height: 200px; }
 
-        /* 宽度调整为 1100px 与主页一致 */
-        .container {
-            width: 100%;
-            max-width: 1100px; 
-            background: #FFFFFF;
-            padding: 40px;
-            border-radius: 32px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.03);
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 40px;
-            border: 1px solid #EEE;
-        }
-
-        h2 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            color: var(--primary-green);
-            margin: 0 0 30px 0;
-            letter-spacing: -0.02em;
-        }
-
-        .input-label {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 15px;
-            color: #7F8C8D;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 20px;
-            border: 2px solid #F4F7F4;
-            border-radius: 16px;
-            box-sizing: border-box;
-            outline: none;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-dark);
-            resize: none;
-            background: #FAFAFA;
-        }
-
-        textarea::placeholder { color: #BDC3C7; }
-
-        .btn-eval {
-            width: 100%;
-            padding: 18px;
-            background: var(--accent-yellow);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-top: 25px;
-            transition: 0.3s;
-        }
-        .btn-eval:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        .display-section {
-            background: #FCFFFC;
-            border: 2px dashed var(--primary-green);
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            text-align: center;
-        }
-
-        #ai-response {
-            display: none;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #27AE60;
-            text-align: left;
-        }
-
-        /* ✨ 统一底部导航栏 ✨ */
-        .nav-bar {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 1000;
-        }
-
-        .nav-bar button {
-            padding: 12px 24px;
-            border-radius: 30px;
-            border: 1px solid #EEE;
-            background: #FFFFFF;
-            color: var(--text-dark);
-            cursor: pointer;
-            font-family: 'Inter';
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-
-        .nav-bar button:hover {
-            background: var(--primary-green);
-            color: white;
-            border-color: var(--primary-green);
-        }
-
-        @media (max-width: 900px) { 
-            .container { grid-template-columns: 1fr; padding: 25px; } 
-        }
+        /* 导航修复 */
+        .nav-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 1000; width: 92%; max-width: 500px; justify-content: center; background: rgba(255,255,255,0.9); padding: 8px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); backdrop-filter: blur(10px); box-sizing: border-box; }
+        .nav-bar button { flex: 1; padding: 12px 2px; border-radius: 30px; border: none; background: transparent; color: var(--text-dark); cursor: pointer; font-family: 'Inter'; font-weight: 700; font-size: 0.65rem; text-transform: uppercase; white-space: nowrap; transition: 0.3s; }
+        .nav-bar button.active { background: var(--accent-yellow); color: white; }
     </style>
 </head>
 <body>
-
-    <div class="prototype-banner">
-        <span>Software Prototype:</span> Non-commercial Concept Model for Technical Demonstration
-    </div>
-
+    <div class="prototype-banner"><span>Software Prototype:</span> Non-commercial Concept Model</div>
     <div class="main-wrapper">
-        <div class="container">
-            <div class="input-section">
-                <h2>AI Companion</h2>
-                <div style="margin-bottom: 20px;">
-                    <label class="input-label">Describe Your Emotions</label>
-                    <textarea id="ai-input" rows="7" placeholder="I've been feeling overwhelmed with my workload recently and I'm struggling to maintain my focus..."></textarea>
-                </div>
-                <button class="btn-eval" onclick="startAI()">Start Transformation</button>
+        <h1 style="color: var(--primary-green); text-align: center; margin-bottom: 10px;">AI Oasis</h1>
+        <p style="text-align: center; color: #7F8C8D; margin-bottom: 40px;">Cognitive Reframing through Generative Dialogue</p>
+        
+        <div class="content-grid">
+            <div class="input-box">
+                <h3 style="margin-top:0">Share your thoughts</h3>
+                <textarea id="userInput" rows="6" placeholder="I'm feeling a bit overwhelmed by my current projects..."></textarea>
+                <button class="action-btn" onclick="generateAI()">Reframe Perspective</button>
             </div>
-
-            <div class="display-section">
-                <div id="placeholder-text" style="color:#BDC3C7; font-family: 'Inter';">Ready for AI reframing...</div>
-                <div id="ai-response"></div>
+            <div class="display-section" id="aiOutput">
+                <p style="color: #7F8C8D;">AI insight will appear here...</p>
             </div>
         </div>
     </div>
-
     <div class="nav-bar">
         <button onclick="location.href='index.html'">Home</button>
-        <button onclick="location.href='mood index.html'">Mood Index</button>
-        <button onclick="location.href='AI.html'">AI Companion</button>
+        <button onclick="location.href='mood index.html'">Mood Evaluation</button>
+        <button class="active" onclick="location.href='AI.html'">AI Companion</button>
         <button onclick="location.href='Community.html'">Community Space</button>
     </div>
-
     <script>
-        function startAI() {
-            const input = document.getElementById('ai-input').value.trim();
-            if (!input) return;
-            document.getElementById('placeholder-text').style.display = 'none';
-            const resBox = document.getElementById('ai-response');
-            resBox.style.display = 'block';
-            resBox.innerHTML = "<strong>AI Perspective:</strong> It's completely natural to feel exhausted during high-pressure periods. Your worth is not measured by your daily output. Consider taking a deliberate 15-minute break to recharge; your well-being is the foundation of your success.";
+        function generateAI() {
+            const out = document.getElementById('aiOutput');
+            out.innerHTML = "<p style='color: var(--text-dark); line-height:1.6;'><b>Moodie AI:</b> It's completely valid to feel this way. Instead of seeing 'overwhelming projects', can we view them as 'a series of opportunities to showcase your resilience'? Let's break them down one by one.</p>";
+            out.style.borderColor = "var(--accent-yellow)";
         }
     </script>
 </body>
