@@ -207,22 +207,35 @@
 
     <script>
         function generateAI() {
-            const input = document.getElementById('userInput').value.trim();
-            if (!input) {
-                alert("Please share your thoughts first.");
-                return;
-            }
-            const out = document.getElementById('aiOutput');
-            out.innerHTML = `
-                <div style="text-align: left; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <p style="color: var(--text-dark); line-height: 1.6; margin: 0;">
-                        <b style="color: var(--primary-green);">Moodie AI:</b> It's completely valid to feel this way. Instead of seeing 'overwhelming projects', can we view them as 'a series of opportunities to showcase your resilience'? Let's break them down together.
-                    </p>
-                </div>
-            `;
-            out.style.borderStyle = "solid";
-            out.style.borderColor = "var(--primary-green)";
-        }
+    const input = document.getElementById('userInput').value.trim();
+    const inputLower = input.toLowerCase();
+    if (!input) {
+        alert("Please share your thoughts first.");
+        return;
+    }
+    
+    const out = document.getElementById('aiOutput');
+    let responseText = "";
+
+    // 逻辑：识别关键词
+    if (inputLower.includes("project") || inputLower.includes("task") || inputLower.includes("work")) {
+        // 针对项目的具体回复
+        responseText = `It's completely valid to feel this way. Instead of seeing 'overwhelming projects', can we view them as 'a series of opportunities to showcase your resilience'? Let's break them down together.`;
+    } else {
+        // 模糊但温暖的通用回复 (例如输入“我不想上学了”)
+        responseText = `I'm sorry you're feeling this way, but thank you for sharing that with me. It’s okay to have days like this. Why not try taking a small break or focusing on one tiny thing that makes you feel safe right now? I'm here to listen.`;
+    }
+
+    out.innerHTML = `
+        <div style="text-align: left; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <p style="color: var(--text-dark); line-height: 1.6; margin: 0;">
+                <b style="color: var(--primary-green);">Moodie AI:</b> ${responseText}
+            </p>
+        </div>
+    `;
+    out.style.borderStyle = "solid";
+    out.style.borderColor = "var(--primary-green)";
+}
     </script>
 </body>
 </html>
