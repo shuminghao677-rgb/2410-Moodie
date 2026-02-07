@@ -23,10 +23,10 @@
             align-items: center;
             min-height: 100vh;
             color: var(--text-dark);
-            overflow-x: hidden; /* 防止左右晃动 */
+            overflow-x: hidden;
         }
 
-        /* 顶部声明栏：强制居中 */
+        /* 顶部 Banner - 修复手机歪斜 */
         .prototype-banner {
             width: 100%;
             background: var(--text-dark);
@@ -42,20 +42,21 @@
             text-transform: uppercase;
             text-align: center;
         }
-        .prototype-banner span { color: var(--accent-yellow); font-weight: 700; margin-right: 5px; }
 
         .main-content {
-            padding: 60px 24px 120px;
+            padding: 80px 24px 80px; /* 底部间距调整，因为没有导航了 */
             max-width: 1100px;
             width: 100%;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         h1 {
             font-weight: 700;
-            font-size: clamp(3rem, 12vw, 4.5rem); /* 手机端自动缩小 */
+            font-size: clamp(3rem, 12vw, 4.5rem); 
             color: var(--primary-green);
             margin: 0 0 15px 0;
             letter-spacing: -0.04em;
@@ -63,25 +64,25 @@
 
         .subtitle {
             font-weight: 400;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #7F8C8D;
-            margin-bottom: 60px;
-            max-width: 600px;
+            margin-bottom: 80px;
+            max-width: 700px;
             line-height: 1.5;
         }
 
-        /* 卡片容器：手机自动切竖排 */
+        /* 卡片布局 */
         .module-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            gap: 30px;
             width: 100%;
-            margin-bottom: 80px;
+            margin-bottom: 90px;
         }
 
         .module-card {
             background: #FFFFFF;
-            padding: 45px 30px;
+            padding: 55px 35px;
             border-radius: 32px;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.03);
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -91,94 +92,64 @@
             color: inherit;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
 
         .module-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
             border-color: var(--primary-green);
-            box-shadow: 0 20px 50px rgba(167, 201, 167, 0.2);
+            box-shadow: 0 25px 70px rgba(167, 201, 167, 0.25);
         }
 
-        .module-title { font-weight: 700; font-size: 1.5rem; text-transform: uppercase; }
+        .module-title { font-weight: 700; font-size: 1.6rem; text-transform: uppercase; }
 
         .tech-tag {
-            align-self: flex-start;
             font-family: 'Roboto Mono', monospace;
             font-size: 0.7rem;
             background: #F4F7F4;
             color: var(--primary-green);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 20px 0;
             font-weight: 600;
         }
 
-        /* 署名部分：手机端完美居中对齐 */
+        /* 署名部分 */
         .team-section {
             width: 100%;
             border-top: 1px solid #EAEAE0;
-            padding-top: 50px;
+            padding-top: 60px;
+            display: flex;
+            justify-content: center;
         }
 
         .team-grid {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 40px;
-            justify-content: flex-start;
+            width: 100%;
         }
 
-        .member { display: flex; flex-direction: column; gap: 8px; min-width: 120px; }
+        .member { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            min-width: 120px; 
+            align-items: center;
+        }
         .role { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: var(--accent-yellow); }
         .name { font-weight: 600; font-size: 1.2rem; }
 
-        /* 底部导航：针对手机优化的“胶囊”设计 */
-        .nav-bar {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 8px 15px;
-            border-radius: 40px;
-            border: 1px solid rgba(238, 238, 238, 0.5);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            max-width: 95vw;
-            overflow-x: auto; /* 屏幕太窄时可横向滑动 */
-        }
-
-        .nav-bar button {
-            padding: 10px 18px;
-            border-radius: 30px;
-            border: none;
-            background: transparent;
-            color: var(--text-dark);
-            cursor: pointer;
-            font-family: 'Inter';
-            font-weight: 700;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            white-space: nowrap; /* 禁止换行 */
-            transition: 0.3s;
-        }
-
-        .nav-bar button:hover { background: var(--primary-green); color: white; }
-
-        /* 响应式微调 */
-        @media (max-width: 600px) {
-            .team-grid { justify-content: center; text-align: center; }
-            .nav-bar { width: 90%; gap: 5px; padding: 6px 10px; }
-            .nav-bar button { padding: 8px 12px; font-size: 0.65rem; }
+        @media (max-width: 480px) {
+            .team-grid { gap: 20px; }
         }
     </style>
 </head>
 <body>
 
     <div class="prototype-banner">
-        <span>Software Prototype:</span> Non-commercial Concept Model
+        Software Prototype: Non-commercial Concept Model
     </div>
 
     <div class="main-content">
@@ -213,13 +184,6 @@
                 <div class="member"><span class="role">Sales</span><span class="name">Rain</span></div>
             </div>
         </div>
-    </div>
-
-    <div class="nav-bar">
-        <button onclick="location.href='index.html'">Home</button>
-        <button onclick="location.href='moodindex.html'">Mood Index</button>
-        <button onclick="location.href='AI.html'">AI Oasis</button>
-        <button onclick="location.href='Community.html'">Community</button>
     </div>
 
 </body>
