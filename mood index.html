@@ -173,28 +173,69 @@
         <button onclick="location.href='AI.html'">AI Companion</button>
         <button onclick="location.href='Community.html'">Community Space</button>
     </div>
-
     <script>
-        function calculateMoodScore() {
-            const prompt = document.getElementById('ui-prompt').value.trim();
-            const steps = document.getElementById('ui-steps').value;
-            const hr = document.getElementById('ui-hr').value;
+    function calculateMoodScore() {
+        const prompt = document.getElementById('ui-prompt').value.toLowerCase(); // 转小写方便匹配
+        const steps = parseInt(document.getElementById('ui-steps').value);
+        const hr = parseInt(document.getElementById('ui-hr').value);
 
-            if (!prompt || !steps || !hr) {
-                alert("Please complete all data fields for fusion.");
-                return;
-            }
-
-            document.getElementById('placeholder').style.display = 'none';
-            document.getElementById('result-box').style.display = 'block';
-            document.getElementById('res-score').innerText = "88%";
-
-            const actionCard = document.getElementById('res-action');
-            actionCard.innerText = "System Suggest: Optimal range achieved. Your physiological and emotional data are within optimal ranges.";
-            actionCard.style.color = "#27AE60";
-            actionCard.style.backgroundColor = "#F9FFF9";
+        // 基础检查
+        if (!prompt || isNaN(steps) || isNaN(hr)) {
+            alert("Please complete all data fields for fusion.");
+            return;
         }
-        function resetPage() { location.reload(); }
-    </script>
+
+        // --- 核心算法逻辑 ---
+        let score = 95; // 初始高分
+
+        // 1. 关键词检测 (每个负面词扣 10 分)
+        const negativeWords = ['tired', 'stressed', 'bad', 'exhausted', 'sad', 'anxious', 'worried'];
+        negativeWords.forEach(word => {
+            if (prompt.includes(word)) {
+                score -= 10;
+            }
+        });
+
+        // 2. 步数检测 (如果步数少于 3000，视为缺乏活力)
+        if (steps < 3000) {
+            score -= 15;
+        }
+
+        // 3. 心率检测 (假设 60-90 是平静状态，太快可能代表焦虑)
+        if (hr > 100 || hr < 60) {
+            score -= 10;
+        }
+
+        // 确保分数在 0-100 之间
+        score = Math.max(0, Math.min(100, score));
+
+        // --- 更新 UI 显示 ---
+        document.getElementById('placeholder').style.display = 'none';
+        const resultBox = document.getElementById('result-box');
+        resultBox.style.display = 'block';
+        
+        const resScore = document.getElementById('res-score');
+        resScore.innerText = score + "%";
+
+        const actionCard = document.getElementById('res-action');
+        
+        // --- 根据分数给出动态建议 ---
+        if (score >= 85) {
+            actionCard.innerText = "System Suggest: Optimal range achieved. Keep maintaining this balance!";
+            actionCard.style.color = "#27AE60"; // 绿色
+            actionCard.style.backgroundColor = "#F9FFF9";
+        } else if (score >= 60) {
+            actionCard.innerText = "System Suggest: Moderate fatigue detected. Consider a short break or a walk.";
+            actionCard.style.color = "#F3A358"; // 橙色
+            actionCard.style.backgroundColor = "#FFF9F4";
+        } else {
+            actionCard.innerText = "System Suggest: Low energy alert. Time to rest and use the AI Companion for reframing.";
+            actionCard.style.color = "#E74C3C"; // 红色
+            actionCard.style.backgroundColor = "#FFF5F5";
+        }
+    }
+
+    function resetPage() { location.reload(); }
+</script>
 </body>
 </html>
